@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  visits-db:
+    image: postgres:13-alpine
+    container_name: visits-db
+    volumes:
+      - ./visits-data:/var/lib/postgresql/data/
+    restart: always
+    environment:
+      POSTGRES_DB: visits
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+    expose:
+      - "54321"
+    ports:
+      - "54321:5432"

@@ -132,4 +132,7 @@ dmypy.json
 bin
 include
 pyvenv.cfg
-users-service/.pytest_cache
+visits-service/.pytest_cache
+visits-service/visits-data
+include
+visits-service/visits_app.db

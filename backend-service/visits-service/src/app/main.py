@@ -1,14 +1,19 @@
 from fastapi import FastAPI
+from .api.api_v1.api import api_router
+from .core.config import settings
+
+from .db.init_db import init_db
+from .db.session import SessionLocal
+
+db = SessionLocal()
+init_db(db)
 
 app = FastAPI(
-    title="Visits Service",
-    description="Visits service API documentation",
-    version="1.0.0",
-    docs_url="/api/v1/docs",
-    openapi_url="/api/v1/openapi.json"
+    title=settings.PROJECT_NAME,
+    description=settings.PROJECT_DESCRIPTION,
+    version=settings.API_VERSION,
+    docs_url=f"{settings.API_V1_STR}/docs",
+    openapi_url=f"{settings.API_V1_STR}/openapi.json"
 )
 
-
-@app.get('/api/v1/status', tags=["health"])
-def status():
-    return {"status": "up"}
+app.include_router(api_router, prefix=settings.API_V1_STR)

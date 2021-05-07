@@ -2,11 +2,11 @@ from fastapi import FastAPI
 from .api.api_v1.api import api_router
 from .core.config import settings
 
-from .db.init_db import init_db
-from .db.session import SessionLocal
-
-db = SessionLocal()
-init_db(db)
+# from .db.init_db import init_db
+# from .db.session import SessionLocal
+#
+# db = SessionLocal()
+# init_db(db)
 
 app = FastAPI(
     title=settings.PROJECT_NAME,

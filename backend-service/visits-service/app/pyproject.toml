@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "app"
+version = "0.1.0"
+description = "visit-service"
+authors = ["Admin <admin@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+uvicorn = "^0.13.4"
+fastapi = "^0.63.0"
+requests = "^2.25.1"
+tenacity = "^6.1.0"
+pydantic = "^1.8.1"
+gunicorn = "^20.0.4"
+psycopg2-binary = "^2.8.6"
+alembic = "^1.5.8"
+sqlalchemy = "^1.4.11"
+pytest = "^6.2.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.3"
+pytest-cov = "^2.11.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

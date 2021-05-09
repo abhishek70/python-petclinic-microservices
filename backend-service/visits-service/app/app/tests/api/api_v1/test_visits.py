@@ -15,6 +15,15 @@ def test_read_visit(client: TestClient, db: Session) -> None:
     assert content["id"] == visit.id
 
 
+def test_read_visit_not_found(client: TestClient, db: Session) -> None:
+    visit_id = random_integer()
+    response = client.get(f"{settings.API_V1_STR}/visits/{visit_id}", headers="")
+    assert response.status_code == 404
+    content = response.json()
+    assert "detail" in content
+    assert content["detail"] == "Visit not found"
+
+
 def test_create_visit(client: TestClient, db: Session) -> None:
     data = {
         "description": f"{random_lower_string()}",
@@ -44,7 +53,31 @@ def test_update_visit(client: TestClient, db: Session) -> None:
     assert data["description"] == content["description"]
 
 
+def test_update_visit_not_found(client: TestClient, db: Session) -> None:
+    visit_id = random_integer()
+    data = {
+        "description": f"{random_lower_string()}",
+        "visit_date": f"{random_datetime()}",
+    }
+    response = client.put(
+        f"{settings.API_V1_STR}/visits/{visit_id}", headers="", json=data
+    )
+    assert response.status_code == 404
+    content = response.json()
+    assert "detail" in content
+    assert content["detail"] == "Visit not found"
+
+
 def test_delete_visit(client: TestClient, db: Session) -> None:
     visit = create_random_visit(db)
     response = client.delete(f"{settings.API_V1_STR}/visits/{visit.id}", headers="")
     assert response.status_code == 200
+
+
+def test_delete_visit_not_found(client: TestClient, db: Session) -> None:
+    visit_id = random_integer()
+    response = client.delete(f"{settings.API_V1_STR}/visits/{visit_id}", headers="")
+    assert response.status_code == 404
+    content = response.json()
+    assert "detail" in content
+    assert content["detail"] == "Visit not found"

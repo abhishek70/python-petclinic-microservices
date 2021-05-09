@@ -1,5 +1,6 @@
 import secrets
 from typing import Any, Dict, List, Optional, Union
+
 from pydantic import AnyHttpUrl, BaseSettings, EmailStr, HttpUrl, PostgresDsn, validator
 
 
@@ -16,7 +17,9 @@ class Settings(BaseSettings):
     POSTGRES_USER: str = "dev"
     POSTGRES_PASSWORD: str = "dev"
     POSTGRES_DB: str = "visits"
-    SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn] = "postgresql://dev:dev@localhost:54321/visits"
+    SQLALCHEMY_DATABASE_URI: Optional[
+        PostgresDsn
+    ] = "postgresql://dev:dev@localhost:54321/visits"
 
     @validator("SQLALCHEMY_DATABASE_URI", pre=True)
     def assemble_db_connection(cls, v: Optional[str], values: Dict[str, Any]) -> Any:

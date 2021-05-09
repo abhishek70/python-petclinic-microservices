@@ -1,1 +1,1 @@
-from .crud_visit import visit # noqa
+from .crud_visit import visit  # noqa

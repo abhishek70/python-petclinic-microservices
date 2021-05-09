@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
+
 from .base import Base
 from .session import engine
-
 
 # make sure all SQL Alchemy models are imported (app.db.base) before initializing DB
 # otherwise, SQL Alchemy might fail to initialize relationships properly

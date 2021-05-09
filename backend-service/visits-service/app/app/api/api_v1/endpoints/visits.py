@@ -1,9 +1,10 @@
 from typing import Any
-from fastapi import APIRouter, Depends, HTTPException, status, Path
+
+from fastapi import APIRouter, Depends, HTTPException, Path, status
 from sqlalchemy.orm import Session
 
-from ... import deps
 from .... import crud, schemas
+from ... import deps
 
 router = APIRouter()
 
@@ -13,11 +14,10 @@ router = APIRouter()
     response_model=schemas.Visit,
     status_code=status.HTTP_200_OK,
     summary="Get visit",
-    description="API for getting a visit details."
+    description="API for getting a visit details.",
 )
 def read_visit(
-        id: int = Path(..., title="", gt=0),
-        db: Session = Depends(deps.get_db)
+    id: int = Path(..., title="", gt=0), db: Session = Depends(deps.get_db)
 ) -> Any:
     """
     Get visit
@@ -36,11 +36,10 @@ def read_visit(
     response_model=schemas.Visit,
     status_code=status.HTTP_201_CREATED,
     summary="Create visit",
-    description="API for creating a visit with all required information."
+    description="API for creating a visit with all required information.",
 )
 def create_visit(
-        payload: schemas.VisitCreate,
-        db: Session = Depends(deps.get_db)
+    payload: schemas.VisitCreate, db: Session = Depends(deps.get_db)
 ) -> Any:
     """
     Create visit
@@ -57,12 +56,12 @@ def create_visit(
     response_model=schemas.Visit,
     status_code=status.HTTP_200_OK,
     summary="Update visit",
-    description="API for updating a visit with all required information."
+    description="API for updating a visit with all required information.",
 )
 def update_visit(
-        payload: schemas.VisitUpdate,
-        id: int = Path(..., title="", gt=0),
-        db: Session = Depends(deps.get_db),
+    payload: schemas.VisitUpdate,
+    id: int = Path(..., title="", gt=0),
+    db: Session = Depends(deps.get_db),
 ) -> Any:
     """
     Update visit
@@ -83,11 +82,10 @@ def update_visit(
     response_model=schemas.Visit,
     status_code=status.HTTP_200_OK,
     summary="Delete visit",
-    description="API for deleting a visit"
+    description="API for deleting a visit",
 )
 def delete_visit(
-        id: int = Path(..., title="", gt=0),
-        db: Session = Depends(deps.get_db)
+    id: int = Path(..., title="", gt=0), db: Session = Depends(deps.get_db)
 ) -> Any:
     """
     Delete visit

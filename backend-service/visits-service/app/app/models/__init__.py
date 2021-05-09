@@ -1,1 +1,1 @@
-from .visit import Visit # noqa
+from .visit import Visit  # noqa

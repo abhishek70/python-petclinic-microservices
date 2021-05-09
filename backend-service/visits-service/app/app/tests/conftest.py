@@ -1,6 +1,8 @@
 from typing import Generator
+
 import pytest
 from fastapi.testclient import TestClient
+
 from ..db.session import SessionLocal
 from ..main import app
 

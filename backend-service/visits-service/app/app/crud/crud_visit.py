@@ -1,8 +1,10 @@
-from .base import CRUDBase
+from typing import List
+
+from sqlalchemy.orm import Session
+
 from ..models.visit import Visit
 from ..schemas.visit import VisitCreate, VisitUpdate
-from typing import List
-from sqlalchemy.orm import Session
+from .base import CRUDBase
 
 
 class CRUDVisit(CRUDBase[Visit, VisitCreate, VisitUpdate]):

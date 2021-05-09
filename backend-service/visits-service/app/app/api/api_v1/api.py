@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from .endpoints import visits, pets, actuators
+from .endpoints import actuators, pets, visits
 
 api_router = APIRouter()
 api_router.include_router(actuators.router, prefix="/actuators", tags=["actuators"])

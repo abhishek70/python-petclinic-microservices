@@ -1,12 +1,15 @@
-from pydantic import BaseModel, Field
 from datetime import datetime
-from typing import Optional, List
+from typing import List, Optional
+
+from pydantic import BaseModel, Field
 
 
 # Shared properties
 class VisitBase(BaseModel):
     # pet_id: int = Field(0, gt=0)
-    description: Optional[str] = Field(None, title="The description of the visit", max_length=255)
+    description: Optional[str] = Field(
+        None, title="The description of the visit", max_length=255
+    )
     visit_date: datetime
 
 

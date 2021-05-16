@@ -14,3 +14,17 @@ services:
       - "54321"
     ports:
       - "54321:5432"
+  users-db:
+    image: postgres:13-alpine
+    container_name: users-db
+    volumes:
+      - ./users-data:/var/lib/postgresql/data/
+    restart: always
+    environment:
+      POSTGRES_DB: users
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+    expose:
+      - "54322"
+    ports:
+      - "54322:5432"

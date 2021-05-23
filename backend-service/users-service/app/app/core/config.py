@@ -38,7 +38,7 @@ class Settings(BaseSettings):
     FIRST_SUPERUSER_PASSWORD: str = "admin"
     FIRST_NAME_SUPERUSER: str = "admin"
     LAST_NAME_SUPERUSER: str = "admin"
-    USERS_OPEN_REGISTRATION: bool = False
+    USERS_OPEN_REGISTRATION: bool = True
 
     class Config:
         case_sensitive = True

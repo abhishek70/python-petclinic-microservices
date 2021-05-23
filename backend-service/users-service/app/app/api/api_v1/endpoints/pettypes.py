@@ -1,5 +1,5 @@
 from typing import Any
-from fastapi import APIRouter, Depends, HTTPException, Path
+from fastapi import APIRouter, Depends, HTTPException, Path, status
 from sqlalchemy.orm import Session
 from app import crud, schemas, models
 from app.api import deps
@@ -29,6 +29,7 @@ def read_pet_type(
 
 @router.post(
     "/",
+    status_code=status.HTTP_201_CREATED,
     response_model=schemas.PetType,
     summary="Create a pet type",
     description="API for creating a pet type with all required information."

@@ -1,8 +1,12 @@
 from typing import Any, List
 from fastapi import APIRouter, Body, Depends, HTTPException
 from app import crud, schemas, models
+from sqlalchemy.orm import Session
+from app.api import deps
+from app.core.config import settings
 
 router = APIRouter()
+
 
 @router.get(
     "/",
@@ -46,6 +50,7 @@ def read_user_me() -> Any:
     """
     pass
 
+
 @router.post(
     "/",
     response_model=schemas.User,
@@ -59,18 +64,45 @@ def create_user() -> Any:
     """
     pass
 
+
 @router.post(
     "/open",
     response_model=schemas.User,
     summary="Create a new user from front end",
     description="Create a new user from front end"
 )
-def create_user_open() -> Any:
+def create_user_open(
+        *,
+        db: Session = Depends(deps.get_db),
+        password: str = Body(...),
+        email: str = Body(...),
+        first_name: str = Body(...),
+        last_name: str = Body(...)
+) -> Any:
     """
     Create new user called from front end
     :return:
     """
-    pass
+    if not settings.USERS_OPEN_REGISTRATION:
+        raise HTTPException(
+            status_code=403,
+            detail="Registration current not allowed"
+        )
+    user = crud.user.get_by_email(db, email=email)
+    if user:
+        raise HTTPException(
+            status_code=400,
+            detail="The user with this username already exists in the system"
+        )
+    user_in = schemas.UserCreate(
+        first_name=first_name,
+        last_name=last_name,
+        email=email,
+        password=password
+    )
+    user = crud.user.create(db=db, obj_in=user_in)
+    return user
+
 
 @router.put(
     "/me",

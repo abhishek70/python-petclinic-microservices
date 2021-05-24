@@ -39,6 +39,7 @@ class Settings(BaseSettings):
     FIRST_NAME_SUPERUSER: str = "admin"
     LAST_NAME_SUPERUSER: str = "admin"
     USERS_OPEN_REGISTRATION: bool = True
+    EMAILS_ENABLED: bool = False
 
     class Config:
         case_sensitive = True

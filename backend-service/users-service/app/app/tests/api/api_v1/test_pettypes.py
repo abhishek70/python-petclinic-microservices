@@ -5,6 +5,11 @@ from app.core.config import settings
 from app.tests.utils.utils import random_integer, create_random_pettype, random_pet_type
 
 
+def test_read_pet_types(client: TestClient, db: Session) -> None:
+    response = client.get(f"{settings.API_V1_STR}/pettypes/", headers="")
+    assert response.status_code == 200
+
+
 def test_read_pet_type(client: TestClient, db: Session) -> None:
     pet_type = create_random_pettype(db)
     response = client.get(f"{settings.API_V1_STR}/pettypes/{pet_type.id}", headers="")

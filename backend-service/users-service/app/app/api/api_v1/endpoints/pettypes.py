@@ -1,10 +1,28 @@
-from typing import Any
+from typing import Any, List
 from fastapi import APIRouter, Depends, HTTPException, Path, status
 from sqlalchemy.orm import Session
 from app import crud, schemas, models
 from app.api import deps
 
 router = APIRouter()
+
+
+@router.get(
+    "/",
+    response_model=List[schemas.PetType],
+    summary="Get pet types",
+    description="API for getting all pet types"
+)
+def read_pet_types(
+        skip: int = 0,
+        limit: int = 100,
+        db: Session = Depends(deps.get_db)
+) -> Any:
+    """
+    Read pet types
+    :return:
+    """
+    return crud.pettype.get_all(db=db, skip=skip, limit=limit)
 
 
 @router.get(

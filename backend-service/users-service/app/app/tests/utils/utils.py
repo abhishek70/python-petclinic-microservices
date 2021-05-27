@@ -46,3 +46,7 @@ def get_superuser_token_headers(client: TestClient) -> Dict[str, str]:
     a_token = tokens["access_token"]
     headers = {"Authorization": f"Bearer {a_token}"}
     return headers
+
+
+def random_pet_name() -> str:
+    return "".join(random.choices(string.ascii_lowercase, k=5))

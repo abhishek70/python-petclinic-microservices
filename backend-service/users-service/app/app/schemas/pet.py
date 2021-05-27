@@ -13,6 +13,7 @@ class PetBase(BaseModel):
 class PetCreate(PetBase):
     name: str
     birth_date: datetime.date
+    type_id: int
 
 
 # Properties to receive on item update

@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Dict
 
 from fastapi.testclient import TestClient
@@ -6,12 +7,14 @@ from sqlalchemy.orm import Session
 from app import crud
 from app.core.config import settings
 from app.models.user import User
+from app.models.pettype import PetType
 from app.schemas.user import UserCreate, UserUpdate
-from app.tests.utils.utils import random_email, random_lower_string
+from app.schemas.pettype import PetTypeCreate
+from app.tests.utils.utils import random_email, random_lower_string, random_pet_name, random_pet_type
 
 
 def user_authentication_headers(
-    *, client: TestClient, email: str, password: str
+        *, client: TestClient, email: str, password: str
 ) -> Dict[str, str]:
     data = {"username": email, "password": password}
 
@@ -33,7 +36,7 @@ def create_random_user(db: Session) -> User:
 
 
 def authentication_token_from_email(
-    *, client: TestClient, email: str, db: Session
+        *, client: TestClient, email: str, db: Session
 ) -> Dict[str, str]:
     """
     Return a valid token for the user with given email.
@@ -44,7 +47,8 @@ def authentication_token_from_email(
     last_name = random_lower_string()
     user = crud.user.get_by_email(db, email=email)
     if not user:
-        user_in_create = UserCreate(username=email, email=email, password=password, first_name=first_name, last_name=last_name)
+        user_in_create = UserCreate(username=email, email=email, password=password, first_name=first_name,
+                                    last_name=last_name)
         user = crud.user.create(db, obj_in=user_in_create)
     else:
         user_in_update = UserUpdate(password=password)

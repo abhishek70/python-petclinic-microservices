@@ -13,13 +13,19 @@ class Settings(BaseSettings):
     # 60 minutes * 24 hours * 8 days = 8 days
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8
 
-    POSTGRES_SERVER: str = "localhost"
-    POSTGRES_USER: str = "dev"
-    POSTGRES_PASSWORD: str = "dev"
-    POSTGRES_DB: str = "visits"
-    SQLALCHEMY_DATABASE_URI: Optional[
-        PostgresDsn
-    ] = "postgresql://dev:dev@localhost:54321/visits"
+    # POSTGRES_SERVER: str = "localhost"
+    # POSTGRES_USER: str = "dev"
+    # POSTGRES_PASSWORD: str = "dev"
+    # POSTGRES_DB: str = "visits"
+    # SQLALCHEMY_DATABASE_URI: Optional[
+    #     PostgresDsn
+    # ] = "postgresql://dev:dev@localhost:54321/visits"
+
+    POSTGRES_SERVER: str
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_DB: str
+    SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn] = None
 
     @validator("SQLALCHEMY_DATABASE_URI", pre=True)
     def assemble_db_connection(cls, v: Optional[str], values: Dict[str, Any]) -> Any:

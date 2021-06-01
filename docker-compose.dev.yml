@@ -1,0 +1,60 @@
+version: '3'
+services:
+  users-service:
+    image: 'users-service:1.0'
+    depends_on:
+      - users-db
+    ports:
+    - "8081:80"
+    volumes:
+    - ./backend-service/users-service/app:/app
+    env_file:
+      - ./backend-service/users-service/.env.dev
+    build:
+      context: ./backend-service/users-service
+      args:
+        INSTALL_DEV: "true"
+    command: /start-reload.sh
+  visits-service:
+    image: 'visits-service:1.0'
+    depends_on:
+      - visits-db
+    ports:
+    - "8082:80"
+    volumes:
+      - ./backend-service/visits-service/app:/app
+    env_file:
+      - ./backend-service/visits-service/.env.dev
+    build:
+      context: ./backend-service/visits-service
+      args:
+        INSTALL_DEV: "true"
+    command: /start-reload.sh
+  visits-db:
+    image: postgres:13-alpine
+    container_name: visits-db
+    volumes:
+      - ./database-service/visits-data:/var/lib/postgresql/data/
+    restart: always
+    environment:
+      POSTGRES_DB: visits
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+    expose:
+      - "54321"
+    ports:
+      - "54321:5432"
+  users-db:
+    image: postgres:13-alpine
+    container_name: users-db
+    volumes:
+      - ./database-service/users-data:/var/lib/postgresql/data/
+    restart: always
+    environment:
+      POSTGRES_DB: users
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+    expose:
+      - "54322"
+    ports:
+      - "54322:5432"
